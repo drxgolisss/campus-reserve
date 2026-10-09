@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block title %}CampusReserve · University resource booking{% endblock %}
+
+{% block content %}
+  <section class="page-shell hero">
+    <div>
+      <p class="eyebrow">University resource booking</p>
+      <h1>Find a room. Borrow equipment. Study better.</h1>
+      <p class="lead">
+        CampusReserve will give students one simple place to find and reserve
+        university study rooms and equipment.
+      </p>
+    </div>
+
+    <aside class="status-card" aria-labelledby="foundation-title">
+      <h2 id="foundation-title">Foundation is running</h2>
+      <ul>
+        <li>Django handles requests and renders this page.</li>
+        <li>PostgreSQL stores persistent data in Docker.</li>
+        <li>The layout adapts to desktop and mobile screens.</li>
+        <li>Run checks with <code>python manage.py test</code>.</li>
+      </ul>
+    </aside>
+  </section>
+{% endblock %}

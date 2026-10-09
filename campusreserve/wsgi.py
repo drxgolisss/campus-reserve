@@ -1,0 +1,9 @@
+"""WSGI configuration for CampusReserve."""
+
+import os
+
+from django.core.wsgi import get_wsgi_application
+
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "campusreserve.settings")
+
+application = get_wsgi_application()
