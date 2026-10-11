@@ -22,7 +22,7 @@ This checklist is based on the assignment photograph and will be updated during 
 
 ## Delivery
 
-- [ ] The Git repository shows incremental development history.
+- [x] The Git repository shows incremental development history.
 - [ ] Material AI prompts and their use are disclosed accurately.
 - [ ] The application runs on another computer using Docker or is hosted.
 - [ ] Unit tests are included.
