@@ -12,7 +12,11 @@
     <header class="site-header">
       <nav class="nav" aria-label="Main navigation">
         <a class="brand" href="{% url 'core:home' %}">CampusReserve</a>
-        <span class="stage-label">Part 1 · Foundation</span>
+        <div class="nav-links">
+          <a href="{% url 'resources:room-list' %}">Rooms</a>
+          <a href="{% url 'resources:equipment-list' %}">Equipment</a>
+        </div>
+        <span class="stage-label">Part 3 · Catalogues</span>
       </nav>
     </header>
 

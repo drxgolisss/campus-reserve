@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+
+{% block title %}Equipment · CampusReserve{% endblock %}
+
+{% block content %}
+  <section class="page-shell catalog-page">
+    <header class="catalog-header">
+      <div>
+        <p class="eyebrow">Resources</p>
+        <h1>Equipment</h1>
+        <p class="lead">Browse university equipment available for reservation.</p>
+      </div>
+      <span class="result-count">{{ equipment|length }} item{{ equipment|length|pluralize }}</span>
+    </header>
+
+    <form class="filter-panel" method="get">
+      <div class="filter-field filter-field-wide">
+        <label for="{{ filter_form.q.id_for_label }}">{{ filter_form.q.label }}</label>
+        {{ filter_form.q }}
+        {{ filter_form.q.errors }}
+      </div>
+      <div class="filter-field">
+        <label for="{{ filter_form.category.id_for_label }}">{{ filter_form.category.label }}</label>
+        {{ filter_form.category }}
+        {{ filter_form.category.errors }}
+      </div>
+      <div class="filter-field">
+        <label for="{{ filter_form.condition.id_for_label }}">{{ filter_form.condition.label }}</label>
+        {{ filter_form.condition }}
+        {{ filter_form.condition.errors }}
+      </div>
+      <div class="filter-actions">
+        <button class="button" type="submit">Apply filters</button>
+        {% if request.GET %}
+          <a class="button button-secondary" href="{% url 'resources:equipment-list' %}">Reset</a>
+        {% endif %}
+      </div>
+    </form>
+
+    <div class="resource-grid">
+      {% for item in equipment %}
+        <article class="resource-card">
+          <div class="resource-card-heading">
+            <div>
+              <p class="resource-type">{{ item.get_category_display }}</p>
+              <h2>{{ item.name }}</h2>
+            </div>
+            <span class="condition-badge condition-{{ item.condition }}">
+              {{ item.get_condition_display }}
+            </span>
+          </div>
+
+          <dl class="resource-details">
+            <div>
+              <dt>Inventory code</dt>
+              <dd>{{ item.inventory_code }}</dd>
+            </div>
+            <div>
+              <dt>Location</dt>
+              <dd>{{ item.location }}</dd>
+            </div>
+          </dl>
+
+          {% if item.description %}
+            <p class="resource-description">{{ item.description }}</p>
+          {% endif %}
+        </article>
+      {% empty %}
+        <div class="empty-state">
+          <h2>No equipment found</h2>
+          <p>Change or reset the filters to see more results.</p>
+        </div>
+      {% endfor %}
+    </div>
+  </section>
+{% endblock %}

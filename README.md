@@ -4,16 +4,22 @@ CampusReserve is a student full-stack project for reserving university study roo
 
 ## Current state
 
-Part 1 provides:
+Parts 1 and 2 provide:
 
 - a minimal Django project;
 - a starter `core` application;
 - a responsive home page;
 - PostgreSQL in Docker Compose;
 - environment-based configuration;
-- one automatic smoke test.
+- `StudyRoom` and `EquipmentItem` database models;
+- an initial resources migration;
+- resource management in Django Admin;
+- a repeatable demonstration-data command;
+- room and equipment catalogue pages;
+- validated search and filter forms;
+- eleven automatic tests.
 
-Authentication, roles, resource catalogues, bookings, and HTMX filters will be added in later parts.
+Authentication, roles, bookings, and HTMX updates will be added in later parts.
 
 ## Run with Docker
 
@@ -44,6 +50,7 @@ The last command deletes local development data, so it should only be used when 
 ```bash
 docker compose exec web python manage.py check
 docker compose exec web python manage.py test
+docker compose exec web python manage.py seed_demo
 ```
 
 ## Project structure
@@ -51,6 +58,7 @@ docker compose exec web python manage.py test
 ```text
 campusreserve/  Django project configuration
 core/           starter application and home page
+resources/      room and equipment models, admin, seed command, and tests
 templates/      shared HTML templates
 static/         shared CSS and later JavaScript
 docs/           proposal, lessons, requirements, and AI log

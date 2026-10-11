@@ -14,12 +14,11 @@
     </div>
 
     <aside class="status-card" aria-labelledby="foundation-title">
-      <h2 id="foundation-title">Foundation is running</h2>
+      <h2 id="foundation-title">Resource catalogues are ready</h2>
       <ul>
-        <li>Django handles requests and renders this page.</li>
-        <li>PostgreSQL stores persistent data in Docker.</li>
-        <li>The layout adapts to desktop and mobile screens.</li>
-        <li>Run checks with <code>python manage.py test</code>.</li>
+        <li>Browse active study rooms and equipment.</li>
+        <li>Search and filter records using validated GET forms.</li>
+        <li>Try <a href="{% url 'resources:room-list' %}">rooms</a> or <a href="{% url 'resources:equipment-list' %}">equipment</a>.</li>
       </ul>
     </aside>
   </section>
