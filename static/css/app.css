@@ -167,6 +167,31 @@ h1 {
   font-weight: 700;
 }
 
+.catalog-summary {
+  min-height: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin: -0.75rem 0 0.75rem;
+}
+
+.filter-status {
+  color: var(--primary);
+  font-size: 0.85rem;
+  font-weight: 800;
+}
+
+.htmx-indicator {
+  opacity: 0;
+  transition: opacity 150ms ease;
+}
+
+.htmx-request .htmx-indicator,
+.htmx-request.htmx-indicator {
+  opacity: 1;
+}
+
 .filter-panel {
   display: grid;
   grid-template-columns: minmax(220px, 1.4fr) repeat(2, minmax(160px, 0.7fr)) auto;

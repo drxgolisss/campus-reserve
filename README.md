@@ -17,9 +17,10 @@ Parts 1 and 2 provide:
 - a repeatable demonstration-data command;
 - room and equipment catalogue pages;
 - validated search and filter forms;
-- eleven automatic tests.
+- HTMX catalogue updates with a normal GET fallback;
+- fourteen automatic tests.
 
-Authentication, roles, bookings, and HTMX updates will be added in later parts.
+Authentication, roles, and bookings will be added in later parts.
 
 ## Run with Docker
 

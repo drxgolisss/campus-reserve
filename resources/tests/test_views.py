@@ -54,6 +54,28 @@ class RoomListViewTests(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTrue(response.context["filter_form"].errors)
 
+    def test_htmx_request_returns_filtered_catalog_partial(self):
+        response = self.client.get(
+            reverse("resources:room-list"),
+            {"building": "Library"},
+            HTTP_HX_REQUEST="true",
+        )
+
+        self.assertTemplateUsed(response, "resources/partials/room_catalog.html")
+        self.assertContains(response, self.small_room.name)
+        self.assertNotContains(response, self.large_room.name)
+        self.assertNotContains(response, "<!doctype html>")
+
+    def test_history_restore_request_returns_complete_page(self):
+        response = self.client.get(
+            reverse("resources:room-list"),
+            HTTP_HX_REQUEST="true",
+            HTTP_HX_HISTORY_RESTORE_REQUEST="true",
+        )
+
+        self.assertTemplateUsed(response, "resources/room_list.html")
+        self.assertContains(response, "<!doctype html>")
+
 
 class EquipmentListViewTests(TestCase):
     @classmethod
@@ -98,3 +120,18 @@ class EquipmentListViewTests(TestCase):
 
         self.assertContains(response, self.laptop.name)
         self.assertNotContains(response, self.projector.name)
+
+    def test_htmx_request_returns_filtered_catalog_partial(self):
+        response = self.client.get(
+            reverse("resources:equipment-list"),
+            {"category": EquipmentItem.Category.PROJECTOR},
+            HTTP_HX_REQUEST="true",
+        )
+
+        self.assertTemplateUsed(
+            response,
+            "resources/partials/equipment_catalog.html",
+        )
+        self.assertContains(response, self.projector.name)
+        self.assertNotContains(response, self.laptop.name)
+        self.assertNotContains(response, "<!doctype html>")

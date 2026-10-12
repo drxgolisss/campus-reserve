@@ -1,0 +1,74 @@
+<div id="room-catalog">
+  <form
+    class="filter-panel"
+    method="get"
+    action="{% url 'resources:room-list' %}"
+    hx-get="{% url 'resources:room-list' %}"
+    hx-target="#room-catalog"
+    hx-swap="outerHTML"
+    hx-trigger="submit, input delay:350ms, change"
+    hx-replace-url="true"
+    hx-indicator="#room-filter-status"
+  >
+    <div class="filter-field filter-field-wide">
+      <label for="{{ filter_form.q.id_for_label }}">{{ filter_form.q.label }}</label>
+      {{ filter_form.q }}
+      {{ filter_form.q.errors }}
+    </div>
+    <div class="filter-field">
+      <label for="{{ filter_form.building.id_for_label }}">{{ filter_form.building.label }}</label>
+      {{ filter_form.building }}
+      {{ filter_form.building.errors }}
+    </div>
+    <div class="filter-field">
+      <label for="{{ filter_form.min_capacity.id_for_label }}">{{ filter_form.min_capacity.label }}</label>
+      {{ filter_form.min_capacity }}
+      {{ filter_form.min_capacity.errors }}
+    </div>
+    <div class="filter-actions">
+      <button class="button" type="submit">Apply filters</button>
+      {% if request.GET %}
+        <a class="button button-secondary" href="{% url 'resources:room-list' %}">Reset</a>
+      {% endif %}
+    </div>
+  </form>
+
+  <div class="catalog-summary" aria-live="polite">
+    <span class="result-count">{{ rooms|length }} room{{ rooms|length|pluralize }}</span>
+    <span id="room-filter-status" class="filter-status htmx-indicator">Updating…</span>
+  </div>
+
+  <div class="resource-grid">
+    {% for room in rooms %}
+      <article class="resource-card">
+        <div class="resource-card-heading">
+          <div>
+            <p class="resource-type">Study room</p>
+            <h2>{{ room.name }}</h2>
+          </div>
+          <span class="availability-badge">Active</span>
+        </div>
+
+        <dl class="resource-details">
+          <div>
+            <dt>Location</dt>
+            <dd>{{ room.building }}, room {{ room.room_number }}</dd>
+          </div>
+          <div>
+            <dt>Capacity</dt>
+            <dd>{{ room.capacity }} people</dd>
+          </div>
+        </dl>
+
+        {% if room.description %}
+          <p class="resource-description">{{ room.description }}</p>
+        {% endif %}
+      </article>
+    {% empty %}
+      <div class="empty-state">
+        <h2>No rooms found</h2>
+        <p>Change or reset the filters to see more results.</p>
+      </div>
+    {% endfor %}
+  </div>
+</div>

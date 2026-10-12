@@ -5,6 +5,13 @@ from .forms import EquipmentFilterForm, RoomFilterForm
 from .models import EquipmentItem, StudyRoom
 
 
+def _is_htmx_request(request):
+    return (
+        request.headers.get("HX-Request") == "true"
+        and request.headers.get("HX-History-Restore-Request") != "true"
+    )
+
+
 def room_list(request):
     rooms = StudyRoom.objects.filter(is_active=True)
     filter_form = RoomFilterForm(request.GET or None)
@@ -25,9 +32,14 @@ def room_list(request):
         if min_capacity is not None:
             rooms = rooms.filter(capacity__gte=min_capacity)
 
+    template_name = (
+        "resources/partials/room_catalog.html"
+        if _is_htmx_request(request)
+        else "resources/room_list.html"
+    )
     return render(
         request,
-        "resources/room_list.html",
+        template_name,
         {"rooms": rooms, "filter_form": filter_form},
     )
 
@@ -52,8 +64,13 @@ def equipment_list(request):
         if condition:
             equipment = equipment.filter(condition=condition)
 
+    template_name = (
+        "resources/partials/equipment_catalog.html"
+        if _is_htmx_request(request)
+        else "resources/equipment_list.html"
+    )
     return render(
         request,
-        "resources/equipment_list.html",
+        template_name,
         {"equipment": equipment, "filter_form": filter_form},
     )
