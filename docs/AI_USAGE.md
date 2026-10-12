@@ -1,21 +1,23 @@
 # AI Usage Disclosure
 
-AI was used as a supporting tool during the planning and early development of CampusReserve. Its main uses were:
+AI-assisted tools were used during the initial project setup as a supporting
+resource. The main uses were:
 
-- brainstorming a project idea that matched the course requirements;
-- discussing a simple Django architecture;
-- explaining Django concepts such as projects, applications, models, ORM, and migrations;
-- suggesting validation rules and test cases;
-- providing example code that was reviewed as part of the learning process.
+- discussing a manageable project scope and Django architecture;
+- explaining Django projects, applications, ORM, migrations, and request flow;
+- checking the Docker and database setup;
+- suggesting validation cases and automated test scenarios.
 
-## Representative prompt summaries
+Representative questions included:
 
-- Suggest a manageable Django project with three roles, two filterable resource types, validated forms, tests, and Docker deployment.
-- Explain how the folders and files in a basic Django project work and how an HTTP request reaches a template.
-- Show a simple way to represent university rooms and individual equipment items as Django models, including basic validation and tests.
+- How should a small Django project with three roles and two resource types be
+  divided into applications?
+- How does a request move through a Django URL, view, form, QuerySet, and
+  template?
+- Which validation and test cases are needed for the resource catalogues and
+  authentication flow?
 
-## Project decisions
-
-The student selected Django and chose a server-rendered monolithic application instead of maintaining a separate frontend and REST API. The scope was kept intentionally small: study rooms, equipment, reservations, and three user roles. Development was divided into small stages so that each part could be reviewed and explained before continuing.
-
-AI suggestions were not treated as authoritative. The project structure, scope, and code are reviewed during development, and automatic tests are used to verify implemented behaviour.
+The suggestions were reviewed and adapted during implementation. Django, a
+server-rendered monolith, custom CSS, and the limited room/equipment scope were
+chosen to keep the project understandable and possible to complete within the
+course deadline. Automated tests are used to verify the implemented behaviour.

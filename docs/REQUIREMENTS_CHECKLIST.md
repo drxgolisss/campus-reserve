@@ -5,19 +5,19 @@ This checklist is based on the assignment photograph and will be updated during 
 ## Application
 
 - [ ] The problem and its domain rules are clearly explained.
-- [ ] Users can log in.
-- [ ] Users can request a password reset.
-- [ ] The system has Student, Manager, and Administrator roles.
-- [ ] Restricted pages require authentication.
-- [ ] Regular users can browse the study-room table.
-- [ ] Regular users can browse the equipment table.
-- [ ] Both catalogues can be filtered.
+- [x] Users can log in.
+- [x] Users can request a password reset.
+- [x] The system has Student, Manager, and Administrator roles.
+- [x] Restricted pages require authentication.
+- [x] Regular users can browse the study-room table.
+- [x] Regular users can browse the equipment table.
+- [x] Both catalogues can be filtered.
 - [ ] The interface is visually consistent.
 - [ ] The interface works at desktop resolution.
 - [ ] The interface works at smartphone resolution.
 - [ ] Every form has server-side validation.
 - [ ] Authorized users can create and modify records.
-- [ ] HTMX or another asynchronous technique is used.
+- [x] HTMX or another asynchronous technique is used.
 - [ ] The code follows the agreed project structure and coding practices.
 
 ## Delivery

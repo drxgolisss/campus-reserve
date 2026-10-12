@@ -105,7 +105,7 @@ The project will use a server-rendered monolithic architecture:
 
 - Python and Django for backend logic, authentication, forms, and templates;
 - PostgreSQL for persistent data;
-- Bootstrap for visual design and responsive layout;
+- custom CSS for visual design and responsive layout;
 - HTMX for asynchronous filtering and partial page updates;
 - pytest or Django's test framework for automated tests;
 - coverage.py for code coverage measurement;
