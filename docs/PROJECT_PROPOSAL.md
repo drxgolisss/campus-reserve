@@ -1,7 +1,6 @@
 # CampusReserve — Project Proposal
 
-**Author:** [Your name and surname]  
-**Course:** [Course name]  
+**Author:** [Piotr Kharashkevich]  
 **Submission date:** 15 October 2026
 
 ## 1. Project idea
