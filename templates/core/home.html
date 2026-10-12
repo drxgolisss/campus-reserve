@@ -8,17 +8,24 @@
       <p class="eyebrow">University resource booking</p>
       <h1>Find a room. Borrow equipment. Study better.</h1>
       <p class="lead">
-        CampusReserve will give students one simple place to find and reserve
+        CampusReserve gives students one simple place to find and reserve
         university study rooms and equipment.
       </p>
+      {% if not user.is_authenticated %}
+        <a class="button hero-action" href="{% url 'login' %}">Log in to browse resources</a>
+      {% endif %}
     </div>
 
     <aside class="status-card" aria-labelledby="foundation-title">
-      <h2 id="foundation-title">Resource catalogues are ready</h2>
+      <h2 id="foundation-title">Find university resources</h2>
       <ul>
         <li>Browse active study rooms and equipment.</li>
         <li>Search and filter records using validated GET forms.</li>
-        <li>Try <a href="{% url 'resources:room-list' %}">rooms</a> or <a href="{% url 'resources:equipment-list' %}">equipment</a>.</li>
+        {% if user.is_authenticated %}
+          <li>Try <a href="{% url 'resources:room-list' %}">rooms</a> or <a href="{% url 'resources:equipment-list' %}">equipment</a>.</li>
+        {% else %}
+          <li>Log in to access the protected resource catalogues.</li>
+        {% endif %}
       </ul>
     </aside>
   </section>

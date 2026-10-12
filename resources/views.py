@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from django.shortcuts import render
 
@@ -12,6 +13,7 @@ def _is_htmx_request(request):
     )
 
 
+@login_required
 def room_list(request):
     rooms = StudyRoom.objects.filter(is_active=True)
     filter_form = RoomFilterForm(request.GET or None)
@@ -44,6 +46,7 @@ def room_list(request):
     )
 
 
+@login_required
 def equipment_list(request):
     equipment = EquipmentItem.objects.filter(is_active=True)
     filter_form = EquipmentFilterForm(request.GET or None)

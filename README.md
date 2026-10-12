@@ -4,7 +4,7 @@ CampusReserve is a student full-stack project for reserving university study roo
 
 ## Current state
 
-Parts 1 and 2 provide:
+The current version provides:
 
 - a minimal Django project;
 - a starter `core` application;
@@ -18,9 +18,13 @@ Parts 1 and 2 provide:
 - room and equipment catalogue pages;
 - validated search and filter forms;
 - HTMX catalogue updates with a normal GET fallback;
-- fourteen automatic tests.
+- login, logout, and password reset;
+- protected resource catalogues;
+- Student, Manager, and Administrator roles;
+- automatic role setup in Docker;
+- automated tests for resources, authentication, and permissions.
 
-Authentication, roles, and bookings will be added in later parts.
+The reservation workflow will be added in the next part.
 
 ## Run with Docker
 
@@ -52,17 +56,20 @@ The last command deletes local development data, so it should only be used when 
 docker compose exec web python manage.py check
 docker compose exec web python manage.py test
 docker compose exec web python manage.py seed_demo
+docker compose exec web python manage.py createsuperuser
+docker compose exec web python manage.py setup_roles
 ```
 
 ## Project structure
 
 ```text
 campusreserve/  Django project configuration
-core/           starter application and home page
+accounts/       authentication tests, role definitions, and setup command
+core/           home page
 resources/      room and equipment models, admin, seed command, and tests
 templates/      shared HTML templates
 static/         shared CSS and later JavaScript
-docs/           proposal, lessons, requirements, and AI log
+docs/           proposal, requirements checklist, and AI usage disclosure
 compose.yaml    web and PostgreSQL services
 Dockerfile      reproducible web container image
 manage.py       Django command-line entry point
@@ -71,3 +78,7 @@ manage.py       Django command-line entry point
 ## Configuration
 
 Docker Compose includes safe development defaults. Copy `.env.example` to `.env` before changing local settings. Production secrets must never be committed to Git.
+
+Password reset emails are printed in the web container logs during local
+development. A real email provider can be configured when the application is
+deployed.

@@ -1,3 +1,4 @@
+from django.contrib.auth import get_user_model
 from django.test import TestCase
 from django.urls import reverse
 
@@ -7,6 +8,7 @@ from resources.models import EquipmentItem, StudyRoom
 class RoomListViewTests(TestCase):
     @classmethod
     def setUpTestData(cls):
+        cls.user = get_user_model().objects.create_user(username="room-viewer")
         cls.small_room = StudyRoom.objects.create(
             name="Quiet Study Room",
             building="Library",
@@ -25,6 +27,20 @@ class RoomListViewTests(TestCase):
             room_number="205",
             capacity=20,
             is_active=False,
+        )
+
+    def setUp(self):
+        self.client.force_login(self.user)
+
+    def test_page_requires_authentication(self):
+        self.client.logout()
+
+        response = self.client.get(reverse("resources:room-list"))
+
+        self.assertRedirects(
+            response,
+            f"{reverse('login')}?next={reverse('resources:room-list')}",
+            fetch_redirect_response=False,
         )
 
     def test_page_displays_only_active_rooms(self):
@@ -80,6 +96,7 @@ class RoomListViewTests(TestCase):
 class EquipmentListViewTests(TestCase):
     @classmethod
     def setUpTestData(cls):
+        cls.user = get_user_model().objects.create_user(username="equipment-viewer")
         cls.laptop = EquipmentItem.objects.create(
             name="Dell Latitude Laptop",
             category=EquipmentItem.Category.LAPTOP,
@@ -101,6 +118,20 @@ class EquipmentListViewTests(TestCase):
             condition=EquipmentItem.Condition.FAIR,
             location="Storage",
             is_active=False,
+        )
+
+    def setUp(self):
+        self.client.force_login(self.user)
+
+    def test_page_requires_authentication(self):
+        self.client.logout()
+
+        response = self.client.get(reverse("resources:equipment-list"))
+
+        self.assertRedirects(
+            response,
+            f"{reverse('login')}?next={reverse('resources:equipment-list')}",
+            fetch_redirect_response=False,
         )
 
     def test_page_displays_only_active_equipment(self):
