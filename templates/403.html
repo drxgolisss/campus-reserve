@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block title %}Access denied · CampusReserve{% endblock %}
+
+{% block content %}
+  <section class="page-shell auth-shell">
+    <div class="auth-card">
+      <p class="eyebrow">Permission required</p>
+      <h1>Access denied</h1>
+      <p class="auth-intro">Your account does not have permission to open this page.</p>
+      <a class="button" href="{% url 'core:home' %}">Return home</a>
+    </div>
+  </section>
+{% endblock %}

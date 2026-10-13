@@ -179,7 +179,9 @@ h1 {
   font-weight: 800;
 }
 
-.form-field input {
+.form-field input:not([type="checkbox"]),
+.form-field select,
+.form-field textarea {
   width: 100%;
   min-height: 44px;
   padding: 0.65rem 0.75rem;
@@ -190,9 +192,21 @@ h1 {
   font: inherit;
 }
 
-.form-field input:focus {
+.form-field textarea {
+  resize: vertical;
+}
+
+.form-field input:not([type="checkbox"]):focus,
+.form-field select:focus,
+.form-field textarea:focus {
   border-color: var(--primary);
   outline: 3px solid rgba(49, 87, 213, 0.14);
+}
+
+.form-field input[type="checkbox"] {
+  width: 1.1rem;
+  height: 1.1rem;
+  accent-color: var(--primary);
 }
 
 .form-message {
@@ -225,6 +239,41 @@ h1 {
 .help-text ul {
   margin: 0.4rem 0 0;
   padding-left: 1.2rem;
+}
+
+.form-actions,
+.header-actions,
+.resource-actions,
+.booking-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+}
+
+.message-list {
+  position: relative;
+  z-index: 2;
+  width: min(1120px, calc(100% - 2rem));
+  margin: 1rem auto -1rem;
+}
+
+.message {
+  padding: 0.8rem 1rem;
+  background: #eef2ff;
+  border: 1px solid #cbd4ff;
+  border-radius: 0.65rem;
+}
+
+.message-success {
+  color: var(--success);
+  background: #eaf8f1;
+  border-color: #bce5cf;
+}
+
+.message-error {
+  color: #8f251d;
+  background: #ffebe9;
+  border-color: #ffc7c2;
 }
 
 .status-card {
@@ -480,6 +529,100 @@ h1 {
   border-top: 1px solid var(--border);
 }
 
+.resource-actions {
+  margin-top: 1.25rem;
+}
+
+.booking-form-card {
+  width: min(100%, 620px);
+}
+
+.booking-section + .booking-section {
+  margin-top: 2.5rem;
+}
+
+.booking-section > h2 {
+  margin: 0 0 1rem;
+  font-size: 1.4rem;
+}
+
+.booking-list {
+  display: grid;
+  gap: 0.8rem;
+}
+
+.booking-card {
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  gap: 1.5rem;
+  padding: 1.25rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 1rem;
+}
+
+.booking-card h3,
+.booking-card p {
+  margin: 0;
+}
+
+.booking-card h3 {
+  margin-top: 0.2rem;
+}
+
+.booking-card h3 + p,
+.booking-comment {
+  margin-top: 0.5rem;
+  color: var(--muted);
+}
+
+.booking-side {
+  display: grid;
+  justify-items: end;
+  gap: 0.8rem;
+}
+
+.status-badge {
+  padding: 0.25rem 0.6rem;
+  color: #704000;
+  background: #fff3dc;
+  border-radius: 999px;
+  font-size: 0.76rem;
+  font-weight: 800;
+}
+
+.status-approved {
+  color: var(--success);
+  background: #eaf8f1;
+}
+
+.status-rejected,
+.status-cancelled {
+  color: #8f251d;
+  background: #ffebe9;
+}
+
+.booking-actions form {
+  margin: 0;
+}
+
+.text-link,
+.text-button {
+  padding: 0;
+  color: var(--primary);
+  background: none;
+  border: 0;
+  cursor: pointer;
+  font: inherit;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.text-button-danger {
+  color: #b42318;
+}
+
 .empty-state {
   grid-column: 1 / -1;
   padding: 3rem 1.5rem;
@@ -509,6 +652,8 @@ h1 {
     order: 3;
     width: 100%;
     margin-left: 0;
+    flex-wrap: wrap;
+    gap: 0.65rem 1rem;
   }
 
   .account-name {
@@ -536,5 +681,13 @@ h1 {
 
   .filter-actions .button {
     flex: 1;
+  }
+
+  .booking-card {
+    flex-direction: column;
+  }
+
+  .booking-side {
+    justify-items: start;
   }
 }

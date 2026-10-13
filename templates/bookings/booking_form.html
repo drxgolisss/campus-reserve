@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block title %}{{ page_title }} · CampusReserve{% endblock %}
+
+{% block content %}
+  <section class="page-shell auth-shell">
+    <div class="auth-card booking-form-card">
+      <p class="eyebrow">Booking request</p>
+      <h1>{{ page_title }}</h1>
+      <p class="auth-intro">All requests are reviewed by a resource manager.</p>
+
+      <form method="post" class="auth-form" novalidate>
+        {% csrf_token %}
+        {{ form.non_field_errors }}
+        {% for field in form %}
+          <div class="form-field">
+            <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+            {{ field }}
+            {{ field.errors }}
+            {% if field.help_text %}<div class="help-text">{{ field.help_text }}</div>{% endif %}
+          </div>
+        {% endfor %}
+        <div class="form-actions">
+          <button class="button" type="submit">Save request</button>
+          <a class="button button-secondary" href="{% url 'bookings:list' %}">Cancel</a>
+        </div>
+      </form>
+    </div>
+  </section>
+{% endblock %}

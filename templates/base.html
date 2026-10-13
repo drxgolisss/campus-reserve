@@ -17,6 +17,12 @@
           {% if user.is_authenticated %}
             <a href="{% url 'resources:room-list' %}">Rooms</a>
             <a href="{% url 'resources:equipment-list' %}">Equipment</a>
+            {% if perms.bookings.view_roombooking and perms.bookings.view_equipmentbooking %}
+              <a href="{% url 'bookings:list' %}">My bookings</a>
+            {% endif %}
+            {% if perms.bookings.change_roombooking and perms.bookings.change_equipmentbooking %}
+              <a href="{% url 'bookings:manage' %}">Manage</a>
+            {% endif %}
           {% endif %}
         </div>
         <div class="account-nav">
@@ -34,6 +40,13 @@
     </header>
 
     <main>
+      {% if messages %}
+        <div class="message-list" aria-live="polite">
+          {% for message in messages %}
+            <div class="message message-{{ message.tags|default:'info' }}">{{ message }}</div>
+          {% endfor %}
+        </div>
+      {% endif %}
       {% block content %}{% endblock %}
     </main>
   </body>

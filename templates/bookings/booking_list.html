@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+
+{% block title %}My bookings · CampusReserve{% endblock %}
+
+{% block content %}
+  <section class="page-shell catalog-page">
+    <header class="catalog-header">
+      <div>
+        <p class="eyebrow">Reservations</p>
+        <h1>My bookings</h1>
+        <p class="lead">Review and manage your room and equipment requests.</p>
+      </div>
+      <div class="header-actions">
+        <a class="button" href="{% url 'bookings:room-create' %}">Reserve a room</a>
+        <a class="button button-secondary" href="{% url 'bookings:equipment-create' %}">Reserve equipment</a>
+      </div>
+    </header>
+
+    <section class="booking-section" aria-labelledby="room-bookings-title">
+      <h2 id="room-bookings-title">Study rooms</h2>
+      <div class="booking-list">
+        {% for booking in room_bookings %}
+          <article class="booking-card">
+            <div>
+              <p class="resource-type">Room booking</p>
+              <h3>{{ booking.room }}</h3>
+              <p>{{ booking.start_time|date:"d M Y, H:i" }}–{{ booking.end_time|date:"d M Y, H:i" }}</p>
+            </div>
+            <div class="booking-side">
+              <span class="status-badge status-{{ booking.status }}">{{ booking.get_status_display }}</span>
+              {% if booking.status == "pending" %}
+                <div class="booking-actions">
+                  <a class="text-link" href="{% url 'bookings:room-update' booking.pk %}">Edit</a>
+                  <form method="post" action="{% url 'bookings:room-cancel' booking.pk %}">
+                    {% csrf_token %}
+                    <button class="text-button text-button-danger" type="submit">Cancel</button>
+                  </form>
+                </div>
+              {% endif %}
+            </div>
+          </article>
+        {% empty %}
+          <div class="empty-state"><p>You do not have any room bookings yet.</p></div>
+        {% endfor %}
+      </div>
+    </section>
+
+    <section class="booking-section" aria-labelledby="equipment-bookings-title">
+      <h2 id="equipment-bookings-title">Equipment</h2>
+      <div class="booking-list">
+        {% for booking in equipment_bookings %}
+          <article class="booking-card">
+            <div>
+              <p class="resource-type">Equipment booking</p>
+              <h3>{{ booking.equipment }}</h3>
+              <p>{{ booking.start_time|date:"d M Y, H:i" }}–{{ booking.end_time|date:"d M Y, H:i" }}</p>
+            </div>
+            <div class="booking-side">
+              <span class="status-badge status-{{ booking.status }}">{{ booking.get_status_display }}</span>
+              {% if booking.status == "pending" %}
+                <div class="booking-actions">
+                  <a class="text-link" href="{% url 'bookings:equipment-update' booking.pk %}">Edit</a>
+                  <form method="post" action="{% url 'bookings:equipment-cancel' booking.pk %}">
+                    {% csrf_token %}
+                    <button class="text-button text-button-danger" type="submit">Cancel</button>
+                  </form>
+                </div>
+              {% endif %}
+            </div>
+          </article>
+        {% empty %}
+          <div class="empty-state"><p>You do not have any equipment bookings yet.</p></div>
+        {% endfor %}
+      </div>
+    </section>
+  </section>
+{% endblock %}

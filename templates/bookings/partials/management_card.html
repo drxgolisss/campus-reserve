@@ -1,0 +1,30 @@
+<article class="booking-card">
+  <div>
+    <p class="resource-type">{{ booking.user.username }}</p>
+    <h3>{{ resource }}</h3>
+    <p>{{ booking.start_time|date:"d M Y, H:i" }}–{{ booking.end_time|date:"d M Y, H:i" }}</p>
+    {% if booking.comment %}<p class="booking-comment">{{ booking.comment }}</p>{% endif %}
+  </div>
+  <div class="booking-side">
+    <span class="status-badge status-{{ booking.status }}">{{ booking.get_status_display }}</span>
+    {% if booking.status == "pending" %}
+      <div class="booking-actions">
+        {% if booking_type == "room" %}
+          <form method="post" action="{% url 'bookings:room-status' booking.pk 'approve' %}">
+            {% csrf_token %}<button class="text-button" type="submit">Approve</button>
+          </form>
+          <form method="post" action="{% url 'bookings:room-status' booking.pk 'reject' %}">
+            {% csrf_token %}<button class="text-button text-button-danger" type="submit">Reject</button>
+          </form>
+        {% else %}
+          <form method="post" action="{% url 'bookings:equipment-status' booking.pk 'approve' %}">
+            {% csrf_token %}<button class="text-button" type="submit">Approve</button>
+          </form>
+          <form method="post" action="{% url 'bookings:equipment-status' booking.pk 'reject' %}">
+            {% csrf_token %}<button class="text-button text-button-danger" type="submit">Reject</button>
+          </form>
+        {% endif %}
+      </div>
+    {% endif %}
+  </div>
+</article>

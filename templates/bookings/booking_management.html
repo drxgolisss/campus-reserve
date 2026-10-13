@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block title %}Manage bookings · CampusReserve{% endblock %}
+
+{% block content %}
+  <section class="page-shell catalog-page">
+    <header class="catalog-header">
+      <div>
+        <p class="eyebrow">Manager workspace</p>
+        <h1>Booking requests</h1>
+        <p class="lead">Approve or reject pending requests.</p>
+      </div>
+    </header>
+
+    <section class="booking-section" aria-labelledby="managed-room-title">
+      <h2 id="managed-room-title">Study rooms</h2>
+      <div class="booking-list">
+        {% for booking in room_bookings %}
+          {% include "bookings/partials/management_card.html" with resource=booking.room booking_type="room" %}
+        {% empty %}
+          <div class="empty-state"><p>No room booking requests.</p></div>
+        {% endfor %}
+      </div>
+    </section>
+
+    <section class="booking-section" aria-labelledby="managed-equipment-title">
+      <h2 id="managed-equipment-title">Equipment</h2>
+      <div class="booking-list">
+        {% for booking in equipment_bookings %}
+          {% include "bookings/partials/management_card.html" with resource=booking.equipment booking_type="equipment" %}
+        {% empty %}
+          <div class="empty-state"><p>No equipment booking requests.</p></div>
+        {% endfor %}
+      </div>
+    </section>
+  </section>
+{% endblock %}
