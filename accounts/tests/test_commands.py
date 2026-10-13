@@ -36,8 +36,11 @@ class SetupRolesCommandTests(TestCase):
         administrator.groups.add(Group.objects.get(name=ADMINISTRATOR))
 
         self.assertTrue(student.has_perm("resources.view_studyroom"))
+        self.assertTrue(student.has_perm("bookings.add_roombooking"))
         self.assertFalse(student.has_perm("resources.change_studyroom"))
+        self.assertFalse(student.has_perm("bookings.change_roombooking"))
         self.assertTrue(manager.has_perm("resources.change_studyroom"))
+        self.assertTrue(manager.has_perm("bookings.change_roombooking"))
         self.assertFalse(manager.has_perm("resources.delete_studyroom"))
         self.assertTrue(administrator.has_perm("resources.delete_studyroom"))
         self.assertTrue(administrator.has_perm("auth.change_user"))
