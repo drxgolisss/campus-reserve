@@ -1,0 +1,14 @@
+[run]
+branch = True
+source =
+    accounts
+    bookings
+    core
+    resources
+omit =
+    */migrations/*
+    */tests/*
+
+[report]
+fail_under = 70
+show_missing = True
