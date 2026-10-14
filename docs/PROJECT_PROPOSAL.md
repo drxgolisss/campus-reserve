@@ -1,6 +1,6 @@
 # CampusReserve — Project Proposal
 
-**Author:** [Piotr Kharashkevich]  
+**Author:** Piotr Kharashkevich
 **Submission date:** 15 October 2026
 
 ## 1. Project idea
@@ -106,7 +106,7 @@ The project will use a server-rendered monolithic architecture:
 - PostgreSQL for persistent data;
 - custom CSS for visual design and responsive layout;
 - HTMX for asynchronous filtering and partial page updates;
-- pytest or Django's test framework for automated tests;
+- Django's test framework for automated tests;
 - coverage.py for code coverage measurement;
 - Docker Compose for repeatable deployment;
 - Git for source control and development history.
@@ -130,20 +130,6 @@ The final project will include:
 - an AI usage log describing the prompts and how the results were reviewed;
 - sample accounts or a data-loading command for the demonstration.
 
-## 11. Implementation schedule
-
-- **9–10 October:** proposal and requirements review;
-- **10–11 October:** repository, Docker, database, and base Django project;
-- **11–12 October:** data model and sample data;
-- **12–13 October:** authentication, password reset, roles, and permissions;
-- **13–14 October:** room and equipment catalogues;
-- **14–15 October:** HTMX filters and first reservation workflow;
-- **16–17 October:** manager workflow and complete CRUD operations;
-- **18 October:** responsive design and usability improvements;
-- **19–20 October:** automated tests and coverage improvements;
-- **21 October:** deployment check, report, screenshots, and presentation practice;
-- **22 October:** final buffer and presentation.
-
-## 12. Expected result
+## 11. Expected result
 
 The final result will be a small but complete full-stack application that demonstrates database modelling, authentication, role-based authorization, validated CRUD operations, asynchronous interaction, automated testing, responsive design, version control, and containerized deployment.

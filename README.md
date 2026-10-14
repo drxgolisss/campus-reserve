@@ -1,10 +1,11 @@
 # CampusReserve
 
-CampusReserve is a student full-stack project for reserving university study rooms and equipment. The application is being built incrementally so that every part can be explained during the project review.
+CampusReserve is a Django web application for reserving university study rooms
+and borrowable equipment.
 
 ## Current state
 
-The current version provides:
+The application provides:
 
 - a minimal Django project;
 - a starter `core` application;
@@ -21,10 +22,13 @@ The current version provides:
 - login, logout, and password reset;
 - protected resource catalogues;
 - Student, Manager, and Administrator roles;
+- room and equipment booking requests;
+- overlap and availability validation;
+- a personal booking list with edit and cancel actions;
+- a manager queue with approve and reject actions;
+- permission-protected resource creation and editing;
 - automatic role setup in Docker;
-- automated tests for resources, authentication, and permissions.
-
-The reservation workflow will be added in the next part.
+- automated tests for resources, authentication, permissions, and bookings.
 
 ## Run with Docker
 
@@ -35,6 +39,18 @@ docker compose up --build
 ```
 
 Open <http://localhost:8000>.
+
+Load demonstration users, resources, and bookings:
+
+```bash
+docker compose exec web python manage.py seed_demo
+```
+
+The development accounts use the password `CampusDemo2026!`:
+
+- `student_demo` — Student;
+- `manager_demo` — Manager;
+- `admin_demo` — Administrator with Django Admin access.
 
 To stop the containers:
 
@@ -58,6 +74,8 @@ docker compose exec web python manage.py test
 docker compose exec web python manage.py seed_demo
 docker compose exec web python manage.py createsuperuser
 docker compose exec web python manage.py setup_roles
+docker compose exec web coverage run manage.py test
+docker compose exec web coverage report
 ```
 
 ## Project structure
@@ -65,11 +83,12 @@ docker compose exec web python manage.py setup_roles
 ```text
 campusreserve/  Django project configuration
 accounts/       authentication tests, role definitions, and setup command
+bookings/       booking models, forms, views, permissions, and tests
 core/           home page
 resources/      room and equipment models, admin, seed command, and tests
 templates/      shared HTML templates
-static/         shared CSS and later JavaScript
-docs/           proposal, requirements checklist, and AI usage disclosure
+static/         shared CSS
+docs/           proposal, screenshots, and AI usage disclosure
 compose.yaml    web and PostgreSQL services
 Dockerfile      reproducible web container image
 manage.py       Django command-line entry point
@@ -82,3 +101,6 @@ Docker Compose includes safe development defaults. Copy `.env.example` to `.env`
 Password reset emails are printed in the web container logs during local
 development. A real email provider can be configured when the application is
 deployed.
+
+The included passwords and development defaults are intended only for a local
+course demonstration. They must be replaced before any public deployment.
