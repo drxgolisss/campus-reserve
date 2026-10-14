@@ -10,6 +10,9 @@
         <h1>Study rooms</h1>
         <p class="lead">Find a room that fits your study session.</p>
       </div>
+      {% if perms.resources.add_studyroom %}
+        <a class="button" href="{% url 'resources:room-create' %}">Add room</a>
+      {% endif %}
     </header>
 
     {% include "resources/partials/room_catalog.html" %}

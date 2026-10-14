@@ -63,6 +63,15 @@
         {% if room.description %}
           <p class="resource-description">{{ room.description }}</p>
         {% endif %}
+
+        <div class="resource-actions">
+          {% if perms.bookings.add_roombooking %}
+            <a class="button" href="{% url 'bookings:room-create' %}?room={{ room.pk }}">Reserve</a>
+          {% endif %}
+          {% if perms.resources.change_studyroom %}
+            <a class="button button-secondary" href="{% url 'resources:room-update' room.pk %}">Edit</a>
+          {% endif %}
+        </div>
       </article>
     {% empty %}
       <div class="empty-state">

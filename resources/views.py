@@ -1,8 +1,14 @@
-from django.contrib.auth.decorators import login_required
+from django.contrib import messages
+from django.contrib.auth.decorators import login_required, permission_required
 from django.db.models import Q
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, redirect, render
 
-from .forms import EquipmentFilterForm, RoomFilterForm
+from .forms import (
+    EquipmentFilterForm,
+    EquipmentItemForm,
+    RoomFilterForm,
+    StudyRoomForm,
+)
 from .models import EquipmentItem, StudyRoom
 
 
@@ -76,4 +82,74 @@ def equipment_list(request):
         request,
         template_name,
         {"equipment": equipment, "filter_form": filter_form},
+    )
+
+
+@login_required
+@permission_required("resources.add_studyroom", raise_exception=True)
+def room_create(request):
+    form = StudyRoomForm(request.POST or None)
+    if request.method == "POST" and form.is_valid():
+        form.save()
+        messages.success(request, "Study room created.")
+        return redirect("resources:room-list")
+
+    return render(
+        request,
+        "resources/manage/room_form.html",
+        {"form": form, "page_title": "Add study room"},
+    )
+
+
+@login_required
+@permission_required("resources.change_studyroom", raise_exception=True)
+def room_update(request, pk):
+    room = get_object_or_404(StudyRoom, pk=pk)
+    form = StudyRoomForm(request.POST or None, instance=room)
+    if request.method == "POST" and form.is_valid():
+        form.save()
+        messages.success(request, "Study room updated.")
+        return redirect("resources:room-list")
+
+    return render(
+        request,
+        "resources/manage/room_form.html",
+        {"form": form, "page_title": "Edit study room", "room": room},
+    )
+
+
+@login_required
+@permission_required("resources.add_equipmentitem", raise_exception=True)
+def equipment_create(request):
+    form = EquipmentItemForm(request.POST or None)
+    if request.method == "POST" and form.is_valid():
+        form.save()
+        messages.success(request, "Equipment created.")
+        return redirect("resources:equipment-list")
+
+    return render(
+        request,
+        "resources/manage/equipment_form.html",
+        {"form": form, "page_title": "Add equipment"},
+    )
+
+
+@login_required
+@permission_required("resources.change_equipmentitem", raise_exception=True)
+def equipment_update(request, pk):
+    equipment = get_object_or_404(EquipmentItem, pk=pk)
+    form = EquipmentItemForm(request.POST or None, instance=equipment)
+    if request.method == "POST" and form.is_valid():
+        form.save()
+        messages.success(request, "Equipment updated.")
+        return redirect("resources:equipment-list")
+
+    return render(
+        request,
+        "resources/manage/equipment_form.html",
+        {
+            "form": form,
+            "page_title": "Edit equipment",
+            "equipment": equipment,
+        },
     )

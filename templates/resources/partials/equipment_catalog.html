@@ -65,6 +65,15 @@
         {% if item.description %}
           <p class="resource-description">{{ item.description }}</p>
         {% endif %}
+
+        <div class="resource-actions">
+          {% if perms.bookings.add_equipmentbooking %}
+            <a class="button" href="{% url 'bookings:equipment-create' %}?equipment={{ item.pk }}">Reserve</a>
+          {% endif %}
+          {% if perms.resources.change_equipmentitem %}
+            <a class="button button-secondary" href="{% url 'resources:equipment-update' item.pk %}">Edit</a>
+          {% endif %}
+        </div>
       </article>
     {% empty %}
       <div class="empty-state">

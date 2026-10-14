@@ -51,3 +51,37 @@ class EquipmentFilterForm(forms.Form):
         label="Condition",
         choices=[("", "Any condition"), *EquipmentItem.Condition.choices],
     )
+
+
+class StudyRoomForm(forms.ModelForm):
+    class Meta:
+        model = StudyRoom
+        fields = [
+            "name",
+            "building",
+            "room_number",
+            "capacity",
+            "description",
+            "is_active",
+        ]
+        widgets = {
+            "capacity": forms.NumberInput(attrs={"min": 1}),
+            "description": forms.Textarea(attrs={"rows": 4}),
+        }
+
+
+class EquipmentItemForm(forms.ModelForm):
+    class Meta:
+        model = EquipmentItem
+        fields = [
+            "name",
+            "category",
+            "inventory_code",
+            "condition",
+            "location",
+            "description",
+            "is_active",
+        ]
+        widgets = {
+            "description": forms.Textarea(attrs={"rows": 4}),
+        }

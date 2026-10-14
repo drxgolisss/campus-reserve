@@ -10,6 +10,9 @@
         <h1>Equipment</h1>
         <p class="lead">Browse university equipment available for reservation.</p>
       </div>
+      {% if perms.resources.add_equipmentitem %}
+        <a class="button" href="{% url 'resources:equipment-create' %}">Add equipment</a>
+      {% endif %}
     </header>
 
     {% include "resources/partials/equipment_catalog.html" %}
